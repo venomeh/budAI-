@@ -30,18 +30,33 @@ async def LLM_response(messages):
         
         if isinstance(messages, list):
             if not any(msg.get("role") == "system" for msg in messages):
-                messages = [{"role": "system", "content": "You are a helpful AI assistant. Keep responses concise and under 1000 characters. Be direct and to the point."}] + messages
+                messages = [{
+                    "role": "system",
+                    "content": (
+                        "You are a helpful AI assistant. Keep responses concise and under 1500 characters. "
+                        "Be direct and to the point. Do not reveal model or technical details unless explicitly asked. "
+                        "If someone asks who created you, reply with: 'I was created by Abdullah Mahmood, CTO @ Octacord.'"
+                    )
+                }] + messages
         else:
             messages = [
-                {"role": "system", "content": "You are a helpful AI assistant. Keep responses concise and under 1000 characters. Be direct and to the point."},
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a helpful AI assistant. Keep responses concise and under 1500 characters. "
+                        "Be direct and to the point. Do not reveal model or technical details unless explicitly asked. "
+                        "If someone asks who created you, reply with: 'I was created by Abdullah Mahmood, CTO @ Octacord.'"
+                    )
+                },
                 messages
             ]
+
         
         completion = client.chat.completions.create(
-                model="deepseek/deepseek-r1:free",
+                model="anthropic/claude-3.5-sonnet",
                 messages=messages,
-                max_tokens=600,  
-                temperature=0.7
+                max_tokens=900,  
+                temperature=0.5  #decreasing this for more relevant response (@-@)
             )  
         
         
