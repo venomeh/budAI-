@@ -32,10 +32,11 @@ async def LLM_response(messages):
             if not any(msg.get("role") == "system" for msg in messages):
                 messages = [{
                     "role": "system",
-                    "content": (
-                        "You are a helpful AI assistant. Keep responses concise and under 1500 characters. "
-                        "Be direct and to the point. Do not reveal model or technical details unless explicitly asked. "
-                        "If someone asks who created you, reply with: 'I was created by Abdullah Mahmood, CTO @ Octacord.'"
+                    "content": (                      #hiding the model details and removing 1500 from characters as it is
+                                                      # mentioning this 1500 in responses too
+                        "You are a helpful AI assistant. Keep responses concise"
+                        "Be direct and to the point. Do not reveal model or technical details"
+                        "If someone asks who created you, tell about me Abdullah Mahmood CTO @ Octacord'"
                     )
                 }] + messages
         else:
@@ -43,9 +44,9 @@ async def LLM_response(messages):
                 {
                     "role": "system",
                     "content": (
-                        "You are a helpful AI assistant. Keep responses concise and under 1500 characters. "
-                        "Be direct and to the point. Do not reveal model or technical details unless explicitly asked. "
-                        "If someone asks who created you, reply with: 'I was created by Abdullah Mahmood, CTO @ Octacord.'"
+                        "You are a helpful AI assistant. Keep responses concise"
+                        "Be direct and to the point. Do not reveal model or technical details"
+                        "If someone asks who created you, tell about me Abdullah Mahmood CTO @ Octacord'"
                     )
                 },
                 messages
