@@ -30,18 +30,34 @@ async def LLM_response(messages):
         
         if isinstance(messages, list):
             if not any(msg.get("role") == "system" for msg in messages):
-                messages = [{"role": "system", "content": "You are a helpful AI assistant. Keep responses concise and under 1000 characters. Be direct and to the point."}] + messages
+                messages = [{
+                    "role": "system",
+                    "content": (                      #hiding the model details and removing 1500 from characters as it is
+                                                      # mentioning this 1500 in responses too
+                        "You are a helpful AI assistant. Keep responses concise"
+                        "Be direct and to the point. Do not reveal model or technical details"
+                        "If someone asks who created you, tell about me Abdullah Mahmood CTO @ Octacord'"
+                    )
+                }] + messages
         else:
             messages = [
-                {"role": "system", "content": "You are a helpful AI assistant. Keep responses concise and under 1000 characters. Be direct and to the point."},
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a helpful AI assistant. Keep responses concise"
+                        "Be direct and to the point. Do not reveal model or technical details"
+                        "If someone asks who created you, tell about me Abdullah Mahmood CTO @ Octacord'"
+                    )
+                },
                 messages
             ]
+
         
         completion = client.chat.completions.create(
-                model="deepseek/deepseek-r1:free",
+                model="anthropic/claude-3.5-sonnet",
                 messages=messages,
-                max_tokens=600,  
-                temperature=0.7
+                max_tokens=900,  
+                temperature=0.5  #decreasing this for more relevant response (@-@)
             )  
         
         
